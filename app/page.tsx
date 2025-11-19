@@ -17,7 +17,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className=" grid grid-cols-1 lg:grid-cols-3 gap-6 text-black">
+        <div className=" grid grid-cols-1 lg:grid-cols-3 gap-6 ">
           {/* control panel */}
           <div className=" lg:col-span-1 space-y-4">
             <UploadControl />

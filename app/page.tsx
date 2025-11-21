@@ -1,10 +1,26 @@
-
+"use client";
 import ExportControl from "@/components/export-control";
+import MemeCanvas from "@/components/meme-canvas";
 import TextControl from "@/components/text-control";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import UploadControl from "@/components/upload-control";
-import Image from "next/image";
+
+import { useMemeGenerator } from "@/hooks/useMemeGenerator";
 
 export default function Home() {
+  const {
+    image,
+    stageSize,
+    handelImageUplaod,
+    addText,
+    textElement,
+    selectedId,
+    updateText,
+    setSelectedId
+  } = useMemeGenerator();
+  console.log(image)
+ 
+
   return (
     <div className="min-h-screen bg-gray-50 p-4">
       <div className="max-w-6xl mx-auto">
@@ -20,14 +36,36 @@ export default function Home() {
         <div className=" grid grid-cols-1 lg:grid-cols-3 gap-6 ">
           {/* control panel */}
           <div className=" lg:col-span-1 space-y-4">
-            <UploadControl />
-            <TextControl />
+            <UploadControl onImageUpload={handelImageUplaod} />
+            <TextControl
+              hasImage={!!image}
+              onAddText={addText}
+              textElemnt={textElement}
+              selectedId={selectedId}
+              onUpdateText={updateText}
+            />
             <ExportControl />
           </div>
 
           {/* canvas panel */}
 
-          <div className="bg-blue-600 lg:col-span-2">dawdsa</div>
+          <div className=" lg:col-span-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>Canvas</CardTitle>
+
+                <CardContent className=" flex justify-center">
+                  <MemeCanvas
+                    image={image}
+                    stageSize={stageSize}
+                    textElemnt={textElement}
+                    selectedId={selectedId}
+                    onSelectText={setSelectedId}
+                  />
+                </CardContent>
+              </CardHeader>
+            </Card>
+          </div>
         </div>
       </div>
     </div>

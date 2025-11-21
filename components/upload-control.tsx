@@ -14,7 +14,13 @@ import { Label } from "@radix-ui/react-label";
 import { Input } from "./ui/input";
 import { RotateCcw } from "lucide-react";
 
-export default function UploadControl() {
+
+interface UploadControlProps{
+
+    onImageUpload :(event:React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export default function UploadControl(  {onImageUpload}: UploadControlProps) {
   return (
     <Card>
       <CardHeader>
@@ -28,7 +34,7 @@ export default function UploadControl() {
         <div className="space-y-4">
             <div>
                 <Label> Choose Image JPG/PNG</Label>
-                <Input  type="file" accept="image/jpeg,image/png" className="mt-1"/>
+                <Input  type="file" accept="image/jpeg,image/png" className="mt-1" onChange={onImageUpload}/>
                 
             </div>
 <Button variant={"outline"} className="w-full bg-transparent">  <RotateCcw className=" w-4 h-4 mr-2"/> Reset Canvas</Button>

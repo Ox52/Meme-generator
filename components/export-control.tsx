@@ -3,7 +3,12 @@ import { Button } from "./ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
 import { Download } from "lucide-react";
 
-export default function ExportControl() {
+interface ExportControlProps{
+    hasImage:boolean ,
+    onExport:()=>void
+}
+
+export default function ExportControl({hasImage,onExport}:ExportControlProps) {
   return (
     <Card>
       <CardHeader>
@@ -11,9 +16,9 @@ export default function ExportControl() {
           <Download className="w-5 h-5" /> Export
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent> 
         <div className="space-y-4">
-          <Button className="w-full "> Download PNG</Button>
+          <Button onClick={onExport} disabled={!hasImage} className="w-full "> Download PNG</Button>
         </div>
       </CardContent>
     </Card>

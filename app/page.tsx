@@ -16,7 +16,11 @@ export default function Home() {
     textElement,
     selectedId,
     updateText,
-    setSelectedId
+    setSelectedId,
+    deleteText,
+    resetCanvas,
+    stageRef,
+    exportImage,
   } = useMemeGenerator();
   console.log(image)
  
@@ -36,15 +40,19 @@ export default function Home() {
         <div className=" grid grid-cols-1 lg:grid-cols-3 gap-6 ">
           {/* control panel */}
           <div className=" lg:col-span-1 space-y-4">
-            <UploadControl onImageUpload={handelImageUplaod} />
+            <UploadControl
+              onImageUpload={handelImageUplaod}
+              onReset={resetCanvas}
+            />
             <TextControl
               hasImage={!!image}
               onAddText={addText}
               textElemnt={textElement}
               selectedId={selectedId}
               onUpdateText={updateText}
+              onDeleteText={deleteText}
             />
-            <ExportControl />
+            <ExportControl hasImage={!!image} onExport={exportImage} />
           </div>
 
           {/* canvas panel */}
@@ -61,6 +69,7 @@ export default function Home() {
                     textElemnt={textElement}
                     selectedId={selectedId}
                     onSelectText={setSelectedId}
+                    stageRef={stageRef}
                   />
                 </CardContent>
               </CardHeader>

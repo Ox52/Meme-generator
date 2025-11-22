@@ -2,7 +2,10 @@
 
 import { StageSize, TextElemnt } from "@/types/meme"
 import { calculateStageSize, loadImageFromFile } from "@/utils/image" 
-import { useCallback, useState } from "react"
+import Konva from "konva"
+import { Filter } from "lucide-react"
+import { resolve } from "path"
+import { useCallback, useRef, useState } from "react"
 
 
  export const useMemeGenerator =()=>{
@@ -14,6 +17,8 @@ import { useCallback, useState } from "react"
   const [textElement ,setTextElement] = useState<TextElemnt[]>([])
 
   const [selectedId,setSelectedId] = useState<string|null>(null)
+
+  const stageRef =  useRef<Konva.Stage>(null)
 
   const handelImageUplaod = useCallback(async( event:React.ChangeEvent<HTMLInputElement>)=>{
 
@@ -27,6 +32,7 @@ import { useCallback, useState } from "react"
 
         const newStageSize = calculateStageSize(img)
         setStageSize(newStageSize)
+        setTextElement([])
       
         setImage(img)
 
@@ -63,6 +69,38 @@ setTextElement((prev)=>prev.map((el)=>(el.id===id ?{...el, text:newText}:el)))
 
   },[])
 
+  const deleteText = useCallback((id:string)=>{
+
+    setTextElement((prev)=>prev.filter((el)=>el.id!==id))
+    setSelectedId(null)
+
+  },[])
+
+  const resetCanvas = useCallback(()=>{
+    setImage(null)
+    setTextElement([])
+    setSelectedId(null)
+    setStageSize({width:600 ,height:400})
+  },[])
+
+  const  exportImage = useCallback(async()=>{
+
+if(!stageRef.current) return
+
+await  new Promise((resolve)=> setTimeout(resolve, 150))
+ const uri = stageRef.current.toDataURL({
+  pixelRatio:2,
+  mimeType:"image/png"
+ });
+
+const link = document.createElement("a")
+link.download ="meme.png"
+link.href =uri
+document.body.appendChild(link)
+link.click()
+document.body.removeChild(link)
+
+  },[])
   return {
     image,
     stageSize,
@@ -71,6 +109,10 @@ setTextElement((prev)=>prev.map((el)=>(el.id===id ?{...el, text:newText}:el)))
     handelImageUplaod,
     addText,
     updateText,
-    setSelectedId
+    setSelectedId,
+    deleteText,
+    resetCanvas,
+    stageRef,
+    exportImage,
   };
 }

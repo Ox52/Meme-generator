@@ -4,10 +4,10 @@ import { Text } from "react-konva";
 interface DraggleableTextProps{
 
   textProps:TextElemnt;
-  isSelected:boolean;
+  // isSelected:boolean;
 
   onSelect :()=>void;
-  onChange :(newAttrs :Partial<TextElemnt>) =>void; 
+  // onChange :(newAttrs :Partial<TextElemnt>) =>void; 
 
 
 }
@@ -16,7 +16,7 @@ interface DraggleableTextProps{
 export default function DraggaleText({ textProps, onSelect }: DraggleableTextProps) {
   return (
     <>
-      <Text draggable {...textProps} onClick={onSelect} />
+      <Text draggable {...textProps} onClick={onSelect} offsetX={textProps.text.length * textProps.fontSize * 0.3} />
     </>
   );
 }

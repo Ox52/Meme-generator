@@ -6,14 +6,13 @@ import { Input } from "./ui/input";
 import { Type } from "lucide-react";
 import { TextElemnt } from "@/types/meme";
 
-interface TextControlProps{
-  hasImage:boolean
-    onAddText :()=>void;
-    textElemnt :TextElemnt;
-    selectedId:string| null;
-    onUpdateText:(id:string ,text:string)=> void;
-
-
+interface TextControlProps {
+  hasImage: boolean;
+  onAddText: () => void;
+  textElemnt: TextElemnt;
+  selectedId: string | null;
+  onUpdateText: (id: string, text: string) => void;
+  onDeleteText:(id:string)=>void;
 }
 export default function TextControl({
   onAddText,
@@ -21,6 +20,7 @@ export default function TextControl({
   selectedId,
   hasImage,
   onUpdateText,
+  onDeleteText
 }: TextControlProps) {
 
     const selectedText =textElemnt.find((el)=>el.id ===selectedId) 
@@ -34,7 +34,7 @@ export default function TextControl({
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <Button className="w-full " onClick={onAddText}>
+            <Button className="w-full " onClick={onAddText} disabled={!hasImage}>
               {" "}
               Add Text
             </Button>
@@ -57,7 +57,7 @@ export default function TextControl({
                   onChange={(e) => onUpdateText(selectedId, e.target.value)}
                 />
               </div>
-              <Button variant={"destructive"} className="w-full ">
+              <Button variant={"destructive"} className="w-full "  onClick={()=>onDeleteText(selectedId)}>
                 {" "}
                 Delete Text
               </Button>

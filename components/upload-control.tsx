@@ -18,9 +18,10 @@ import { RotateCcw } from "lucide-react";
 interface UploadControlProps{
 
     onImageUpload :(event:React.ChangeEvent<HTMLInputElement>) => void;
+    onReset: ()=>void;
 }
 
-export default function UploadControl(  {onImageUpload}: UploadControlProps) {
+export default function UploadControl(  {onImageUpload,onReset}: UploadControlProps) {
   return (
     <Card>
       <CardHeader>
@@ -37,10 +38,10 @@ export default function UploadControl(  {onImageUpload}: UploadControlProps) {
                 <Input  type="file" accept="image/jpeg,image/png" className="mt-1" onChange={onImageUpload}/>
                 
             </div>
-<Button variant={"outline"} className="w-full bg-transparent">  <RotateCcw className=" w-4 h-4 mr-2"/> Reset Canvas</Button>
+<Button  onClick={onReset} variant={"outline"} className="w-full bg-transparent">  <RotateCcw className=" w-4 h-4 mr-2"/> Reset Canvas</Button>
 
         </div>
       </CardContent>
     </Card>
-  );
+  ); 
 }

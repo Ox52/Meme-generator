@@ -3,25 +3,24 @@ import { Upload } from 'lucide-react';
 import React from 'react'
 import { Layer, Stage, Image as KonvasImage } from "react-konva";
 import DraggaleText from './dragabel-text';
+import Konva from 'konva';
 
 
-interface MemeCanvasProps{
-
-    image :HTMLImageElement | null;
-    stageSize:StageSize;
-    textElemnt :TextElemnt[];
-        selectedId:string| null;
-        onSelectText :(id:string)=>void;
-
-
-
+interface MemeCanvasProps {
+  image: HTMLImageElement | null;
+  stageSize: StageSize;
+  textElemnt: TextElemnt[];
+  selectedId: string | null;
+  onSelectText: (id: string) => void;
+  stageRef: React.RefObject< Konva.Stage| null >;
 }
 export default function MemeCanvas({
   image,
   stageSize,
   textElemnt,
-  selectedId,
+  
   onSelectText,
+  stageRef,
 }: MemeCanvasProps) {
   if (!image) {
     return (
@@ -41,7 +40,7 @@ export default function MemeCanvas({
       className="border-2 border-dashed border-gray rounded-lg overflow-hidden"
       style={{ width: stageSize.width, height: stageSize.height }}
     >
-      <Stage width={window.innerWidth} height={window.innerHeight}>
+      <Stage width={stageSize.width} height={stageSize.height} ref={stageRef}>
         <Layer>
           <KonvasImage
             image={image}
@@ -50,7 +49,11 @@ export default function MemeCanvas({
           />
 
           {textElemnt.map((textEl) => (
-            <DraggaleText key={textEl.id} textProps={textEl} onSelect={()=>onSelectText(textEl.id)} />
+            <DraggaleText
+              key={textEl.id}
+              textProps={textEl}
+              onSelect={() => onSelectText(textEl.id)}
+            />
           ))}
         </Layer>
       </Stage>

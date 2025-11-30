@@ -26,7 +26,7 @@ export default function UploadControl(  {onImageUpload,onReset}: UploadControlPr
     <Card>
       <CardHeader>
         <CardTitle className=" flex items-center gap-2">
-          <Upload  className="w-5 h-5"/> Uplaod Image
+          <Upload  className="w-5 h-5"/> Upload Image
         </CardTitle>
       </CardHeader>
       <CardContent>

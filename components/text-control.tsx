@@ -9,7 +9,7 @@ import { TextElemnt } from "@/types/meme";
 interface TextControlProps {
   hasImage: boolean;
   onAddText: () => void;
-  textElemnt: TextElemnt;
+  textElemnt: TextElemnt[];
   selectedId: string | null;
   onUpdateText: (id: string, text: string) => void;
   onDeleteText:(id:string)=>void;
